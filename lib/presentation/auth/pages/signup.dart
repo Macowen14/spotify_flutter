@@ -3,17 +3,16 @@ import 'package:flutter_svg/svg.dart';
 import 'package:spotify_clone/common/widgets/button/basic_app_button.dart';
 import 'package:spotify_clone/core/configs/assets/app_vectors.dart';
 import 'package:spotify_clone/common/helpers/is_dark_mode.dart';
-import 'package:spotify_clone/core/configs/theme/app_colors.dart';
-import 'package:spotify_clone/presentation/auth/pages/signup.dart';
+import 'package:spotify_clone/presentation/auth/pages/signin.dart';
 
-class Signin extends StatefulWidget {
-  const Signin({super.key});
+class Signup extends StatefulWidget {
+  const Signup({super.key});
 
   @override
-  State<Signin> createState() => _SigninState();
+  State<Signup> createState() => _SignupState();
 }
 
-class _SigninState extends State<Signin> {
+class _SignupState extends State<Signup> {
   bool _isPasswordVisible = false;
 
   @override
@@ -28,26 +27,26 @@ class _SigninState extends State<Signin> {
               children: [
                 const SizedBox(height: 20),
                 _buildAppBar(context),
-                const SizedBox(height: 50),
-                SvgPicture.asset(AppVectors.logo, height: 60, width: 60),
                 const SizedBox(height: 40),
-                _signInText(),
+                SvgPicture.asset(AppVectors.logo, height: 60, width: 60),
+                const SizedBox(height: 30),
+                _registerText(),
                 const SizedBox(height: 10),
                 _subTitle(),
-                const SizedBox(height: 50),
+                const SizedBox(height: 40),
+                _fullNameField(),
+                const SizedBox(height: 20),
                 _emailField(),
                 const SizedBox(height: 20),
                 _passwordField(),
-                const SizedBox(height: 16),
-                _forgotPasswordButton(),
-                const SizedBox(height: 30),
-                _signInButton(),
+                const SizedBox(height: 40),
+                _createAccountButton(),
                 const SizedBox(height: 30),
                 _orDivider(),
                 const SizedBox(height: 30),
                 _socialButtons(),
                 const SizedBox(height: 30),
-                _signUpText(),
+                _signInText(),
                 const SizedBox(height: 30),
               ],
             ),
@@ -82,9 +81,9 @@ class _SigninState extends State<Signin> {
     );
   }
 
-  Widget _signInText() {
+  Widget _registerText() {
     return const Text(
-      "Sign In",
+      "Register",
       style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
       textAlign: TextAlign.center,
     );
@@ -92,9 +91,19 @@ class _SigninState extends State<Signin> {
 
   Widget _subTitle() {
     return Text(
-      "Welcome back! Please enter your details",
+      "Create your account to get started",
       style: TextStyle(fontSize: 14, color: Colors.grey.shade600),
       textAlign: TextAlign.center,
+    );
+  }
+
+  Widget _fullNameField() {
+    return TextField(
+      decoration: InputDecoration(
+        labelText: "Full Name",
+        hintText: "Enter your full name",
+        prefixIcon: Icon(Icons.person_outline, color: Colors.grey.shade600),
+      ),
     );
   }
 
@@ -131,71 +140,12 @@ class _SigninState extends State<Signin> {
     );
   }
 
-  Widget _forgotPasswordButton() {
-    return Align(
-      alignment: Alignment.centerRight,
-      child: GestureDetector(
-        onTap: () {
-          _showFeatureNotImplementedDialog(context);
-        },
-        child: const Text(
-          "Forgot Password?",
-          style: TextStyle(
-            fontSize: 14,
-            color: AppColors.primary,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-      ),
-    );
-  }
-
-  void _showFeatureNotImplementedDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
-          ),
-          title: Row(
-            children: [
-              Icon(Icons.info_outline, color: AppColors.primary, size: 28),
-              const SizedBox(width: 12),
-              const Text(
-                "Coming Soon",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-            ],
-          ),
-          content: const Text(
-            "The password reset feature is currently under development. Please check back later!",
-            style: TextStyle(fontSize: 15, height: 1.4),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: const Text(
-                "Got it",
-                style: TextStyle(
-                  color: AppColors.primary,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  Widget _signInButton() {
+  Widget _createAccountButton() {
     return BasicAppButton(
       onPressed: () {
-        // Handle sign in
+        // Handle signup
       },
-      title: "Sign In",
+      title: "Create Account",
       height: 56,
     );
   }
@@ -228,7 +178,7 @@ class _SigninState extends State<Signin> {
           onPressed: () {
             // Handle Google sign in
           },
-          iconPath: AppVectors.google,
+          iconPath: AppVectors.google, // Add this to your AppVectors
           label: "Continue with Google",
         ),
         const SizedBox(height: 16),
@@ -237,7 +187,7 @@ class _SigninState extends State<Signin> {
           onPressed: () {
             // Handle Apple sign in
           },
-          iconPath: AppVectors.apple,
+          iconPath: AppVectors.apple, // Add this to your AppVectors
           label: "Continue with Apple",
         ),
       ],
@@ -286,12 +236,12 @@ class _SigninState extends State<Signin> {
     );
   }
 
-  Widget _signUpText() {
+  Widget _signInText() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          "Don't have an account? ",
+          "Already have an account? ",
           style: TextStyle(
             fontSize: 14,
             color: Colors.grey.shade600,
@@ -300,16 +250,13 @@ class _SigninState extends State<Signin> {
         ),
         GestureDetector(
           onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => Signup()),
-            );
+            Navigator.pop(context);
           },
           child: const Text(
-            "Sign Up",
+            "Sign In",
             style: TextStyle(
               fontSize: 14,
-              color: AppColors.primary,
+              color: Color(0xFF42C83C), // AppColors.primary
               fontWeight: FontWeight.bold,
             ),
           ),

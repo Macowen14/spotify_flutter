@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:spotify_clone/common/widgets/appbar/app_bar.dart';
 import 'package:spotify_clone/common/widgets/button/basic_app_button.dart';
 import 'package:spotify_clone/core/configs/assets/app_images.dart';
 import 'package:spotify_clone/core/configs/assets/app_vectors.dart';
+import 'package:spotify_clone/presentation/auth/pages/signin.dart';
+import 'package:spotify_clone/presentation/auth/pages/signup.dart';
 
 class SignupOrSignIn extends StatelessWidget {
   const SignupOrSignIn({super.key});
@@ -12,6 +15,7 @@ class SignupOrSignIn extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
+          BasicAppBar(),
           Align(
             alignment: Alignment.topRight,
             child: SvgPicture.asset(AppVectors.union),
@@ -51,7 +55,12 @@ class SignupOrSignIn extends StatelessWidget {
                     children: [
                       Expanded(
                         child: BasicAppButton(
-                          onPressed: () => {},
+                          onPressed: () => {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => Signup()),
+                            ),
+                          },
                           title: 'Register',
                           height: 50,
                         ),
@@ -59,7 +68,12 @@ class SignupOrSignIn extends StatelessWidget {
                       SizedBox(width: 20),
                       Expanded(
                         child: BasicAppButton(
-                          onPressed: () => {},
+                          onPressed: () => {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => Signin()),
+                            ),
+                          },
                           title: 'Login',
                           height: 50,
                         ),

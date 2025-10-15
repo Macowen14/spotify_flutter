@@ -7,4 +7,6 @@ class AppVectors {
   static const String sun = '${basePath}Sun$format';
   static const String union = '${basePath}Union$format';
   static const String bottomPattern = '${basePath}bottom_pattern$format';
+  static const String google = '${basePath}google$format';
+  static const String apple = '${basePath}apple$format';
 }

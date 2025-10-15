@@ -79,7 +79,7 @@ class ChooseModePage extends StatelessWidget {
 
                 BasicAppButton(
                   onPressed: () {
-                    Navigator.pushReplacement(
+                    Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => SignupOrSignIn()),
                     );
